@@ -9,6 +9,12 @@ public class BoardController : MonoBehaviour
     public Slot playerMeleeBuff;
     public Slot playerRangedBuff;
     public Slot playerSiegeBuff;
+    public PowerDisplay playerScore;
+
+    public void Start()
+    {
+        playerScore.SetPower(0);
+    }
 
     public void Highlight(CardDisplay card)
     {
@@ -32,7 +38,6 @@ public class BoardController : MonoBehaviour
     {
         if (card is UnitCard unitCard)
         {
-            Debug.Log(unitCard.type);
             return unitCard.type switch
             {
                 UnitType.Melee => BoardSlot.PlayerMeleeZone,

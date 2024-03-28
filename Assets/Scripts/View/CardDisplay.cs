@@ -8,7 +8,7 @@ public class CardDisplay : MonoBehaviour
     public Card card;
     public Text nameText;
     public Text descText;
-    public Image powerImage;
+    public PowerDisplay powerDisplay;
     public Image unitTypeImage;
     public Image kindBorderImage;
     public Image kindBannerImage;
@@ -24,10 +24,10 @@ public class CardDisplay : MonoBehaviour
     {
         if (card is UnitCard unitCard)
         {
-            powerImage.sprite = Resources.Load<Sprite>(unitCard.power.ToString());
             unitTypeImage.sprite = Resources.Load<Sprite>(unitCard.type.ToString().ToLower());
             kindBorderImage.sprite = Resources.Load<Sprite>("card-border-" + unitCard.kind.ToString().ToLower());
             kindBannerImage.sprite = Resources.Load<Sprite>(unitCard.kind.ToString().ToLower());
+            powerDisplay.SetPower(unitCard.power);
             originalScale = transform.localScale;
         }
     }

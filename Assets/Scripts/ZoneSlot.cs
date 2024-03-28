@@ -3,6 +3,7 @@ using UnityEngine;
 
 public class ZoneSlot : Slot
 {
+  public Zone zone;
   public CardDisplay cardPrefab;
   public GameObject slot;
   private readonly float cardWidth = 114f;
@@ -13,6 +14,7 @@ public class ZoneSlot : Slot
     if (_highlight.activeSelf)
     {
       CardDisplay card = CardManager.Instance.selectedCard;
+      zone.AddCard(card.card as UnitCard);
       card.transform.localPosition = new Vector3(0, 0, 0);
       card.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
       card.transform.SetParent(slot.transform, false);
