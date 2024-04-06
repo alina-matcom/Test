@@ -1,4 +1,3 @@
-using Unity.Profiling;
 using UnityEngine;
 
 public class Card : ScriptableObject
@@ -8,4 +7,5 @@ public class Card : ScriptableObject
     public CardKind kind;
     public string Image;
     public string Faction;
+    public int owner;
 }

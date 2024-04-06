@@ -1,22 +1,14 @@
-public class CardSlot : Slot
+public class BuffSlot : Slot
 {
   public CardDisplay slot;
 
-  public void SetCard(CardDisplay card)
+  public override void PlayCard(Card card)
   {
-    slot = card;
+    slot.SetCard(card);
   }
 
   public void Clear()
   {
     slot = null;
-  }
-
-  void OnMouseDown()
-  {
-    if (_highlight.activeSelf)
-    {
-      SetCard(CardManager.Instance.selectedCard);
-    }
   }
 }

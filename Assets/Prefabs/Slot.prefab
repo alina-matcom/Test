@@ -104,7 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c8f04a89189b1b49bc0396aad1ffefc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hoverHighlight: {fileID: 8540191172685161295}
+  _hover: {fileID: 8540191172685161295}
   _highlight: {fileID: 7039673262446165568}
 --- !u!61 &5546717196173733240
 BoxCollider2D:

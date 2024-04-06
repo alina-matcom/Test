@@ -6,8 +6,20 @@ using UnityEngine;
 
 public class Slot : MonoBehaviour
 {
-    [SerializeField] private GameObject _hoverHighlight;
+    [SerializeField] private GameObject _hover;
     [SerializeField] protected GameObject _highlight;
+    public virtual void PlayCard(Card card) { }
+
+    public delegate void SlotSelectedHandler(Slot slot);
+    public static event SlotSelectedHandler OnSlotSelected;
+
+    public void OnMouseDown()
+    {
+        if (_highlight)
+        {
+            OnSlotSelected?.Invoke(this);
+        }
+    }
 
     public void Highlight()
     {
@@ -21,11 +33,11 @@ public class Slot : MonoBehaviour
 
     void OnMouseEnter()
     {
-        _hoverHighlight.SetActive(true);
+        _hover.SetActive(true);
     }
 
     void OnMouseExit()
     {
-        _hoverHighlight.SetActive(false);
+        _hover.SetActive(false);
     }
 }

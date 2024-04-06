@@ -1,29 +1,34 @@
 using System.Collections;
+using System.Linq;
 using UnityEngine;
 
 public class ZoneSlot : Slot
 {
-  public Zone zone;
   public CardDisplay cardPrefab;
   public GameObject slot;
   private readonly float cardWidth = 114f;
   private readonly float zoneWidth = 600f;
 
-  void OnMouseDown()
+  public override void PlayCard(Card card)
   {
-    if (_highlight.activeSelf)
+    if (card is UnitCard unitCard)
     {
-      CardDisplay card = CardManager.Instance.selectedCard;
-      zone.AddCard(card.card as UnitCard);
-      card.transform.localPosition = new Vector3(0, 0, 0);
-      card.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
-      card.transform.SetParent(slot.transform, false);
-      CardManager.Instance.selectedCard = null;
+      CardDisplay cardDisplay = Instantiate(cardPrefab, slot.transform);
+      cardDisplay.SetCard(unitCard);
+      cardDisplay.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
+      cardDisplay.transform.localPosition = new Vector3(0, 0, 0);
       _highlight.SetActive(false);
       StartCoroutine(AdjustCardPositions());
     }
   }
 
+  public int GetRowPower()
+  {
+    return slot.transform
+      .GetChild(0)
+      .GetComponents<CardDisplay>()
+      .Sum(card => (card.card as UnitCard).power);
+  }
 
   IEnumerator AdjustCardPositions()
   {
@@ -41,6 +46,5 @@ public class ZoneSlot : Slot
       float xPosition = startX + i * (cardWidth + spacing);
       card.localPosition = new Vector3(xPosition - zoneWidth / 2f, 0, (-i - 1) * 10);
     }
-
   }
 }

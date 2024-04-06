@@ -1,14 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
-using DG.Tweening;
-using Unity.Collections.LowLevel.Unsafe;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PowerDisplay : MonoBehaviour
 {
     public Texture2D[] numberImages;
-    protected int power;
+    public int power;
 
     public void UpdateDisplay()
     {

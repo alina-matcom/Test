@@ -1,11 +1,10 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR;
 
 public class HandManager : MonoBehaviour
 {
-    public List<Card> cards = new();
-    public CardDisplay cardPrefab; // Assign your card prefab in the Inspector
+    public HandCardDisplay cardPrefab;
     public float handWidth = 1200f; // Total width of the hand space
     public float cardWidth = 170f; // Width of each card
     public int maxCardsInHand = 10;
@@ -17,9 +16,8 @@ public class HandManager : MonoBehaviour
             return;
         }
 
-        cards.Add(card);
-        CardDisplay newCard = Instantiate(cardPrefab, transform);
-        newCard.card = card;
+        HandCardDisplay newCard = Instantiate(cardPrefab, transform);
+        newCard.SetCard(card);
         newCard.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
         StartCoroutine(AdjustCardPositions());
@@ -27,7 +25,6 @@ public class HandManager : MonoBehaviour
 
     public void RemoveCard(CardDisplay card)
     {
-        cards.Remove(card.card);
         Destroy(card.gameObject);
 
         StartCoroutine(AdjustCardPositions());
