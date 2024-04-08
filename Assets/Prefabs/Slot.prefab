@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 601942234488211399}
   - component: {fileID: 6601377251708070842}
-  - component: {fileID: 6366881359259359151}
   - component: {fileID: 5546717196173733240}
   m_Layer: 5
   m_Name: Slot
@@ -92,20 +91,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6366881359259359151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3995032994446023138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1c8f04a89189b1b49bc0396aad1ffefc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _hover: {fileID: 8540191172685161295}
-  _highlight: {fileID: 7039673262446165568}
 --- !u!61 &5546717196173733240
 BoxCollider2D:
   m_ObjectHideFlags: 0

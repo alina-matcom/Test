@@ -9,16 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7394f52c7101e064c8499b53b6ee713f, type: 3}
-  m_Name: s7
+  m_Script: {fileID: 11500000, guid: 1c54781ac381919448085ffbaf5d56a3, type: 3}
+  m_Name: b1
   m_EditorClassIdentifier: 
-  name: Soldier
-  description: Regular soldier
+  name: Ballad of the Mockinjay
+  description: 
   kind: 0
   Image: 
   Faction: 
   owner: 0
-  type: 2
-  originalPower: 3
-  power: 3
-  effect: 
+  powerIncrease: 3

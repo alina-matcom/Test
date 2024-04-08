@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -8,6 +9,18 @@ public class ZoneSlot : Slot
   public GameObject slot;
   private readonly float cardWidth = 114f;
   private readonly float zoneWidth = 600f;
+
+  protected List<CardDisplay> GetCards()
+  {
+    List<CardDisplay> cards = new();
+
+    for (int i = 0; i < slot.transform.childCount; i++)
+    {
+      cards.Add(slot.transform.GetChild(i).GetComponent<CardDisplay>());
+    }
+
+    return cards;
+  }
 
   public override void PlayCard(Card card)
   {
@@ -24,10 +37,30 @@ public class ZoneSlot : Slot
 
   public int GetRowPower()
   {
-    return slot.transform
-      .GetChild(0)
-      .GetComponents<CardDisplay>()
-      .Sum(card => (card.card as UnitCard).power);
+    return GetCards().Sum(card => (card.card as UnitCard).power);
+  }
+
+  public void ApplyEffect(PowerModifier modifier, int value)
+  {
+    List<CardDisplay> cards = GetCards();
+
+    foreach (CardDisplay card in cards)
+    {
+      UnitCard unitCard = card.card as UnitCard;
+
+      switch (modifier)
+      {
+        case PowerModifier.Increment:
+          card.SetPower(unitCard.originalPower + value);
+          break;
+        case PowerModifier.Decrement:
+          card.SetPower(unitCard.originalPower - value);
+          break;
+        case PowerModifier.Fix:
+          card.SetPower(value);
+          break;
+      }
+    }
   }
 
   IEnumerator AdjustCardPositions()

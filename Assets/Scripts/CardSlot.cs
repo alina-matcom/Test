@@ -1,14 +1,20 @@
+using UnityEngine;
+
 public class BuffSlot : Slot
 {
-  public CardDisplay slot;
+  public CardDisplay cardDisplay;
+  public Card card;
 
   public override void PlayCard(Card card)
   {
-    slot.SetCard(card);
+    this.card = card;
+    cardDisplay.SetCard(card);
+    cardDisplay.gameObject.SetActive(true);
   }
 
   public void Clear()
   {
-    slot = null;
+    card = null;
+    cardDisplay.gameObject.SetActive(false);
   }
 }

@@ -17,6 +17,8 @@ MonoBehaviour:
   kind: 1
   Image: 
   Faction: 
+  owner: 0
   type: 2
+  originalPower: 8
   power: 8
   effect: 

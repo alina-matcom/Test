@@ -3,7 +3,6 @@ using UnityEngine;
 public class GameController : Singleton<GameController>
 {
     public HandManager playerHandManager;
-    public BoardController boardController;
 
     void Start()
     {
@@ -30,14 +29,14 @@ public class GameController : Singleton<GameController>
             return;
         }
         CardManager.Instance.selectedCard = card;
-        boardController.ShowPlayableSlots(card);
+        BoardController.Instance.ShowPlayableSlots(card);
     }
 
     public void PlaceCard(Slot slot)
     {
         if (CardManager.Instance.selectedCard)
         {
-            boardController.PlayCard(CardManager.Instance.selectedCard.card, slot);
+            BoardController.Instance.PlayCard(CardManager.Instance.selectedCard.card, slot);
             playerHandManager.RemoveCard(CardManager.Instance.selectedCard);
             CardManager.Instance.selectedCard = null;
         }

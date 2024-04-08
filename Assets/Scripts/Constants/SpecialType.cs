@@ -1,1 +1,1 @@
-public enum SpecialType { Field, Buff, Decoy }
+public enum SpecialType { Field, Buff, Decoy, Clear }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,8 +8,9 @@ public class Zone : MonoBehaviour
 {
     public int rowPower;
     public ZoneSlot unitsSlot;
-    public Slot buffSlot;
+    public BuffSlot buffSlot;
     public PowerDisplay powerDisplay;
+    public UnitType rowType;
 
     public void Start()
     {
@@ -20,18 +22,11 @@ public class Zone : MonoBehaviour
         if (card is UnitCard unitCard)
         {
             unitsSlot.PlayCard(unitCard);
-            UpdateRowPower();
         }
         else
         {
             buffSlot.PlayCard(card);
         }
-    }
-
-    public void RemoveCard(UnitCard card)
-    {
-        rowPower -= card.power;
-        powerDisplay.SetPower(rowPower);
     }
 
     public int GetRowPower()
@@ -41,6 +36,14 @@ public class Zone : MonoBehaviour
 
     public void UpdateRowPower()
     {
+        if (buffSlot.card)
+        {
+            unitsSlot.ApplyEffect(
+                PowerModifier.Increment,
+                (buffSlot.cardDisplay.card as BuffCard).powerIncrease
+            );
+        }
+
         rowPower = unitsSlot.GetRowPower();
         powerDisplay.SetPower(rowPower);
     }

@@ -2,14 +2,14 @@ using System;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class BoardController : MonoBehaviour
+public class BoardController : Singleton<BoardController>
 {
     public Zone playerMeleeZone;
     public Zone playerRangedZone;
     public Zone playerSiegeZone;
-    public Slot playerMeleeBuff;
-    public Slot playerRangedBuff;
-    public Slot playerSiegeBuff;
+    public BuffSlot playerMeleeBuff;
+    public BuffSlot playerRangedBuff;
+    public BuffSlot playerSiegeBuff;
     public PowerDisplay playerScore;
     protected int playerScoreCounter;
 
@@ -33,11 +33,18 @@ public class BoardController : MonoBehaviour
             case BoardSlot.PlayerSiegeZone:
                 playerSiegeZone.unitsSlot.Highlight();
                 break;
+            case BoardSlot.PlayerMeleeBuff:
+                playerMeleeBuff.Highlight();
+                playerRangedBuff.Highlight();
+                playerSiegeBuff.Highlight();
+                break;
         }
     }
 
     public BoardSlot GetZoneForCard(Card card)
     {
+        Unhighlight();
+
         if (card is UnitCard unitCard)
         {
             return unitCard.type switch
@@ -48,6 +55,15 @@ public class BoardController : MonoBehaviour
                 _ => throw new ArgumentException("Invalid card type"),
             };
         }
+        else if (card is BuffCard)
+        {
+            return BoardSlot.PlayerMeleeBuff;
+        }
+        else if (card is FieldCard)
+        {
+            return BoardSlot.FieldZone;
+        }
+
         throw new ArgumentException("Invalid card type");
     }
 
@@ -70,12 +86,25 @@ public class BoardController : MonoBehaviour
                     break;
             }
 
-            playerScore.SetPower(GetPlayerScore());
         }
-        else
+        else if (slot is BuffSlot)
         {
             slot.PlayCard(card);
+            playerMeleeBuff.Unhighlight();
+            playerRangedBuff.Unhighlight();
+            playerSiegeBuff.Unhighlight();
         }
+
+        UpdateScore();
+    }
+
+    public void UpdateScore()
+    {
+
+        playerMeleeZone.UpdateRowPower();
+        playerRangedZone.UpdateRowPower();
+        playerSiegeZone.UpdateRowPower();
+        playerScore.SetPower(GetPlayerScore());
     }
 
     public int GetPlayerScore()
@@ -86,8 +115,13 @@ public class BoardController : MonoBehaviour
             playerSiegeZone.GetRowPower();
     }
 
-    public void UpdatePlayerScore()
+    public void Unhighlight()
     {
-        playerScore.SetPower(GetPlayerScore());
+        playerMeleeZone.unitsSlot.Unhighlight();
+        playerRangedZone.unitsSlot.Unhighlight();
+        playerSiegeZone.unitsSlot.Unhighlight();
+        playerMeleeBuff.Unhighlight();
+        playerRangedBuff.Unhighlight();
+        playerSiegeBuff.Unhighlight();
     }
 }

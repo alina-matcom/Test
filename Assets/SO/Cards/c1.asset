@@ -9,16 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7394f52c7101e064c8499b53b6ee713f, type: 3}
-  m_Name: s7
+  m_Script: {fileID: 11500000, guid: ecdef5acb14647f49ab50741db8fd549, type: 3}
+  m_Name: c1
   m_EditorClassIdentifier: 
-  name: Soldier
-  description: Regular soldier
-  kind: 0
+  name: The mockingjay
+  description: 
+  kind: 1
   Image: 
   Faction: 
   owner: 0
-  type: 2
-  originalPower: 3
-  power: 3
-  effect: 
+  type: 3

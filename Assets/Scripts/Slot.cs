@@ -15,7 +15,7 @@ public class Slot : MonoBehaviour
 
     public void OnMouseDown()
     {
-        if (_highlight)
+        if (_highlight.activeInHierarchy)
         {
             OnSlotSelected?.Invoke(this);
         }

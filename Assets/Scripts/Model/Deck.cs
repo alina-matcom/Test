@@ -13,6 +13,7 @@ public class Deck : ScriptableObject
         cards.Clear();
         foreach (Card card in originalCards)
         {
+            card.Reset();
             cards.Add(card);
         }
     }

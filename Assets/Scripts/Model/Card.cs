@@ -8,4 +8,5 @@ public class Card : ScriptableObject
     public string Image;
     public string Faction;
     public int owner;
+    public virtual void Reset() { }
 }
