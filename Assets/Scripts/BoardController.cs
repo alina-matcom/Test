@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,37 +8,50 @@ public class BoardController : Singleton<BoardController>
     public Zone playerMeleeZone;
     public Zone playerRangedZone;
     public Zone playerSiegeZone;
-    public BuffSlot playerMeleeBuff;
-    public BuffSlot playerRangedBuff;
-    public BuffSlot playerSiegeBuff;
+    public Zone enemyMeleeZone;
+    public Zone enemyRangedZone;
+    public Zone enemySiegeZone;
     public PowerDisplay playerScore;
+    public PowerDisplay enemyScore;
     protected int playerScoreCounter;
+    protected int enemyScoreCounter;
 
     public void Start()
     {
         playerScore.SetPower(0);
     }
 
-    public void ShowPlayableSlots(CardDisplay card)
+    public void ShowPlayableSlots(CardDisplay card, bool isPlayer)
     {
         BoardSlot slot = GetZoneForCard(card.card);
 
-        switch (slot)
+        Dictionary<BoardSlot, Action> slotActions = new()
         {
-            case BoardSlot.PlayerMeleeZone:
-                playerMeleeZone.unitsSlot.Highlight();
-                break;
-            case BoardSlot.PlayerRangedZone:
-                playerRangedZone.unitsSlot.Highlight();
-                break;
-            case BoardSlot.PlayerSiegeZone:
-                playerSiegeZone.unitsSlot.Highlight();
-                break;
-            case BoardSlot.PlayerMeleeBuff:
-                playerMeleeBuff.Highlight();
-                playerRangedBuff.Highlight();
-                playerSiegeBuff.Highlight();
-                break;
+            { BoardSlot.PlayerMeleeZone, () => (isPlayer ? playerMeleeZone : enemyMeleeZone).unitsSlot.Highlight() },
+            { BoardSlot.PlayerRangedZone, () => (isPlayer ? playerRangedZone : enemyRangedZone).unitsSlot.Highlight() },
+            { BoardSlot.PlayerSiegeZone, () => (isPlayer ? playerSiegeZone : enemySiegeZone).unitsSlot.Highlight() },
+            { BoardSlot.Buff, () =>
+                {
+                    if (isPlayer)
+                    {
+                        playerMeleeZone.buffSlot.Highlight();
+                        playerRangedZone.buffSlot.Highlight();
+                        playerSiegeZone.buffSlot.Highlight();
+                    }
+                    else
+                    {
+                        enemyMeleeZone.buffSlot.Highlight();
+                        enemyRangedZone.buffSlot.Highlight();
+                        enemySiegeZone.buffSlot.Highlight();
+                    }
+                }
+            }
+        };
+
+        // Execute the action associated with the current slot
+        if (slotActions.TryGetValue(slot, out var action))
+        {
+            action.Invoke();
         }
     }
 
@@ -57,7 +71,7 @@ public class BoardController : Singleton<BoardController>
         }
         else if (card is BuffCard)
         {
-            return BoardSlot.PlayerMeleeBuff;
+            return BoardSlot.Buff;
         }
         else if (card is FieldCard)
         {
@@ -85,26 +99,32 @@ public class BoardController : Singleton<BoardController>
                     playerSiegeZone.PlayCard(unitCard);
                     break;
             }
-
         }
         else if (slot is BuffSlot)
         {
             slot.PlayCard(card);
-            playerMeleeBuff.Unhighlight();
-            playerRangedBuff.Unhighlight();
-            playerSiegeBuff.Unhighlight();
         }
 
+        Unhighlight();
         UpdateScore();
     }
 
-    public void UpdateScore()
+    public void UpdateZonesPower()
     {
 
         playerMeleeZone.UpdateRowPower();
         playerRangedZone.UpdateRowPower();
         playerSiegeZone.UpdateRowPower();
+        enemyMeleeZone.UpdateRowPower();
+        enemyRangedZone.UpdateRowPower();
+        enemySiegeZone.UpdateRowPower();
+    }
+
+    public void UpdateScore()
+    {
+        UpdateZonesPower();
         playerScore.SetPower(GetPlayerScore());
+        enemyScore.SetPower(GetPlayerScore());
     }
 
     public int GetPlayerScore()
@@ -115,13 +135,21 @@ public class BoardController : Singleton<BoardController>
             playerSiegeZone.GetRowPower();
     }
 
+    public int GetEnemyScore()
+    {
+        return
+            enemyMeleeZone.GetRowPower() +
+            enemyRangedZone.GetRowPower() +
+            enemySiegeZone.GetRowPower();
+    }
+
     public void Unhighlight()
     {
-        playerMeleeZone.unitsSlot.Unhighlight();
-        playerRangedZone.unitsSlot.Unhighlight();
-        playerSiegeZone.unitsSlot.Unhighlight();
-        playerMeleeBuff.Unhighlight();
-        playerRangedBuff.Unhighlight();
-        playerSiegeBuff.Unhighlight();
+        playerMeleeZone.Unhighlight();
+        playerRangedZone.Unhighlight();
+        playerSiegeZone.Unhighlight();
+        enemyMeleeZone.Unhighlight();
+        enemyRangedZone.Unhighlight();
+        enemySiegeZone.Unhighlight();
     }
 }

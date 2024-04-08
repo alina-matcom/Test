@@ -30,7 +30,6 @@ public class ZoneSlot : Slot
       cardDisplay.SetCard(unitCard);
       cardDisplay.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
       cardDisplay.transform.localPosition = new Vector3(0, 0, 0);
-      _highlight.SetActive(false);
       StartCoroutine(AdjustCardPositions());
     }
   }

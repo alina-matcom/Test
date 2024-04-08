@@ -29,7 +29,7 @@ public class GameController : Singleton<GameController>
             return;
         }
         CardManager.Instance.selectedCard = card;
-        BoardController.Instance.ShowPlayableSlots(card);
+        BoardController.Instance.ShowPlayableSlots(card, true);
     }
 
     public void PlaceCard(Slot slot)

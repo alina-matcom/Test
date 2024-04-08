@@ -47,4 +47,10 @@ public class Zone : MonoBehaviour
         rowPower = unitsSlot.GetRowPower();
         powerDisplay.SetPower(rowPower);
     }
+
+    public void Unhighlight()
+    {
+        buffSlot.Unhighlight();
+        unitsSlot.Unhighlight();
+    }
 }
