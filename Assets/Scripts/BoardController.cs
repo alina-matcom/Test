@@ -11,92 +11,36 @@ public class BoardController : Singleton<BoardController>
     public Zone enemyMeleeZone;
     public Zone enemyRangedZone;
     public Zone enemySiegeZone;
+    public FieldZone fieldZone;
     public PowerDisplay playerScore;
     public PowerDisplay enemyScore;
+    public TurnIndicator playerTurnIndicator;
+    public TurnIndicator enemyTurnIndicator;
     protected int playerScoreCounter;
     protected int enemyScoreCounter;
 
     public void Start()
     {
         playerScore.SetPower(0);
+        enemyScore.SetPower(0);
     }
 
-    public void ShowPlayableSlots(CardDisplay card, bool isPlayer)
-    {
-        BoardSlot slot = GetZoneForCard(card.card);
-
-        Dictionary<BoardSlot, Action> slotActions = new()
-        {
-            { BoardSlot.PlayerMeleeZone, () => (isPlayer ? playerMeleeZone : enemyMeleeZone).unitsSlot.Highlight() },
-            { BoardSlot.PlayerRangedZone, () => (isPlayer ? playerRangedZone : enemyRangedZone).unitsSlot.Highlight() },
-            { BoardSlot.PlayerSiegeZone, () => (isPlayer ? playerSiegeZone : enemySiegeZone).unitsSlot.Highlight() },
-            { BoardSlot.Buff, () =>
-                {
-                    if (isPlayer)
-                    {
-                        playerMeleeZone.buffSlot.Highlight();
-                        playerRangedZone.buffSlot.Highlight();
-                        playerSiegeZone.buffSlot.Highlight();
-                    }
-                    else
-                    {
-                        enemyMeleeZone.buffSlot.Highlight();
-                        enemyRangedZone.buffSlot.Highlight();
-                        enemySiegeZone.buffSlot.Highlight();
-                    }
-                }
-            }
-        };
-
-        // Execute the action associated with the current slot
-        if (slotActions.TryGetValue(slot, out var action))
-        {
-            action.Invoke();
-        }
-    }
-
-    public BoardSlot GetZoneForCard(Card card)
-    {
-        Unhighlight();
-
-        if (card is UnitCard unitCard)
-        {
-            return unitCard.type switch
-            {
-                UnitType.Melee => BoardSlot.PlayerMeleeZone,
-                UnitType.Ranged => BoardSlot.PlayerRangedZone,
-                UnitType.Siege => BoardSlot.PlayerSiegeZone,
-                _ => throw new ArgumentException("Invalid card type"),
-            };
-        }
-        else if (card is BuffCard)
-        {
-            return BoardSlot.Buff;
-        }
-        else if (card is FieldCard)
-        {
-            return BoardSlot.FieldZone;
-        }
-
-        throw new ArgumentException("Invalid card type");
-    }
-
-    public void PlayCard(Card card, Slot slot)
+    public void PlayCard(Card card, Slot slot, int turn)
     {
         if (card is UnitCard unitCard)
         {
             switch (unitCard.type)
             {
                 case UnitType.Melee:
-                    playerMeleeZone.PlayCard(unitCard);
+                    (turn == 0 ? playerMeleeZone : enemyMeleeZone).PlayCard(unitCard);
                     break;
 
                 case UnitType.Ranged:
-                    playerRangedZone.PlayCard(unitCard);
+                    (turn == 0 ? playerRangedZone : enemyRangedZone).PlayCard(unitCard);
                     break;
 
                 case UnitType.Siege:
-                    playerSiegeZone.PlayCard(unitCard);
+                    (turn == 0 ? playerSiegeZone : enemySiegeZone).PlayCard(unitCard);
                     break;
             }
         }
@@ -105,7 +49,6 @@ public class BoardController : Singleton<BoardController>
             slot.PlayCard(card);
         }
 
-        Unhighlight();
         UpdateScore();
     }
 
@@ -124,7 +67,7 @@ public class BoardController : Singleton<BoardController>
     {
         UpdateZonesPower();
         playerScore.SetPower(GetPlayerScore());
-        enemyScore.SetPower(GetPlayerScore());
+        enemyScore.SetPower(GetEnemyScore());
     }
 
     public int GetPlayerScore()
@@ -143,13 +86,9 @@ public class BoardController : Singleton<BoardController>
             enemySiegeZone.GetRowPower();
     }
 
-    public void Unhighlight()
+    public void UpdateTurnIndicator(int turn)
     {
-        playerMeleeZone.Unhighlight();
-        playerRangedZone.Unhighlight();
-        playerSiegeZone.Unhighlight();
-        enemyMeleeZone.Unhighlight();
-        enemyRangedZone.Unhighlight();
-        enemySiegeZone.Unhighlight();
+        playerTurnIndicator.Show(turn == 0);
+        enemyTurnIndicator.Show(turn == 1);
     }
 }

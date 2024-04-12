@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Card", menuName = "Card/Unit Card")]
@@ -10,7 +11,17 @@ public class UnitCard : Card
 
     public override void Reset()
     {
-        base.Reset();
         power = originalPower;
+    }
+
+    public override BoardSlot GetBoardSlot()
+    {
+        return type switch
+        {
+            UnitType.Melee => BoardSlot.MeleeZone,
+            UnitType.Ranged => BoardSlot.RangedZone,
+            UnitType.Siege => BoardSlot.SiegeZone,
+            _ => throw new ArgumentException("Invalid card type"),
+        };
     }
 }

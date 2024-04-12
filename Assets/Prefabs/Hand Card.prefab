@@ -161,6 +161,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: dca49369f716a4a4895dbe6ead355aac, type: 3}
   - {fileID: 2800000, guid: 7eb4a448ab8fcc344b17cce6fb50865e, type: 3}
   - {fileID: 2800000, guid: 434b2c0b9d7ed9248839b9e0eedf96c6, type: 3}
+  power: 0
 --- !u!1 &3287093292796942619
 GameObject:
   m_ObjectHideFlags: 0
@@ -487,7 +488,7 @@ MonoBehaviour:
   descText: {fileID: 0}
   powerDisplay: {fileID: 5288044417317973351}
   unitTypeImage: {fileID: 3518477618040829978}
-  kindBorderImage: {fileID: 2933624823153180114}
+  kindBorderImage: {fileID: 8966496268028818500}
   kindBannerImage: {fileID: 7088759833860731305}
 --- !u!1 &7504744464295039067
 GameObject:

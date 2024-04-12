@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class DeckController : MonoBehaviour
 {
-    public delegate void DeckClickedHandler(Card card);
-    public static event DeckClickedHandler OnDeckClicked;
+    public HandManager handManager;
     public Deck deck;
 
     void Start()
@@ -11,12 +10,13 @@ public class DeckController : MonoBehaviour
         deck.Reset();
     }
 
-
-    void OnMouseDown()
+    public void Draw(int amount)
     {
-        Card drawnCard = deck.DrawRandomCard();
-        if (!drawnCard) return;
-        OnDeckClicked?.Invoke(drawnCard);
+        for (int i = 0; i < amount; i++)
+        {
+            Card drawnCard = deck.DrawRandomCard();
+            if (!drawnCard) return;
+            handManager.AddCard(drawnCard);
+        }
     }
-
 }

@@ -5,4 +5,11 @@ public class FieldCard : SpecialCard
 {
   public UnitType affectedType;
   public int powerReduction;
+
+  public override BoardSlot GetBoardSlot()
+  {
+    return BoardSlot.FieldZone;
+  }
+
+  public override void Reset() { }
 }

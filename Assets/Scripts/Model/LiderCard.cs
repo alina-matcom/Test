@@ -11,4 +11,11 @@ public class LiderCard : Card
 
     charges--;
   }
+
+  public override BoardSlot GetBoardSlot()
+  {
+    return BoardSlot.None;
+  }
+
+  public override void Reset() { }
 }

@@ -8,10 +8,18 @@ public class Slot : MonoBehaviour
 {
     [SerializeField] private GameObject _hover;
     [SerializeField] protected GameObject _highlight;
+    public BoardSlot slotType;
+    public int owner;
+
     public virtual void PlayCard(Card card) { }
 
     public delegate void SlotSelectedHandler(Slot slot);
     public static event SlotSelectedHandler OnSlotSelected;
+
+    public void Start()
+    {
+        GameController.OnHighlight += Highlight;
+    }
 
     public void OnMouseDown()
     {
@@ -21,15 +29,11 @@ public class Slot : MonoBehaviour
         }
     }
 
-    public void Highlight()
+    public void Highlight(BoardSlot slot, int player)
     {
-        _highlight.SetActive(true);
+        _highlight.SetActive(slotType == slot && owner == player);
     }
 
-    public void Unhighlight()
-    {
-        _highlight.SetActive(false);
-    }
 
     void OnMouseEnter()
     {

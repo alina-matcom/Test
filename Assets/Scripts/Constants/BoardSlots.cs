@@ -1,8 +1,9 @@
 public enum BoardSlot
 {
+  None,
   FieldZone,
-  PlayerMeleeZone,
-  PlayerRangedZone,
-  PlayerSiegeZone,
+  MeleeZone,
+  RangedZone,
+  SiegeZone,
   Buff,
 }

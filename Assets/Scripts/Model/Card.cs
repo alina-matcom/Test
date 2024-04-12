@@ -1,6 +1,7 @@
+using System.Threading;
 using UnityEngine;
 
-public class Card : ScriptableObject
+public abstract class Card : ScriptableObject
 {
     public new string name;
     public string description;
@@ -8,5 +9,6 @@ public class Card : ScriptableObject
     public string Image;
     public string Faction;
     public int owner;
-    public virtual void Reset() { }
+    public abstract void Reset();
+    public abstract BoardSlot GetBoardSlot();
 }
