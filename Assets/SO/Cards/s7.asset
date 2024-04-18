@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Soldier
   description: Regular soldier
   kind: 0
-  Image: 
+  Image: katniss
   Faction: 
   owner: 0
   type: 2

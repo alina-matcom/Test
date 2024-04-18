@@ -11,6 +11,7 @@ public class CardDisplay : MonoBehaviour
     public Image unitTypeImage;
     public Image kindBorderImage;
     public Image kindBannerImage;
+    public Image cardImage; 
 
     protected void Start()
     {
@@ -23,7 +24,7 @@ public class CardDisplay : MonoBehaviour
 
         kindBorderImage.sprite = Resources.Load<Sprite>("card-border-" + card.kind.ToString().ToLower());
         kindBannerImage.sprite = Resources.Load<Sprite>(card.kind.ToString().ToLower());
-
+        cardImage.sprite = Resources.Load<Sprite>("card-images/" + card.Image);
         if (card is UnitCard unitCard)
         {
             unitTypeImage.sprite = Resources.Load<Sprite>(unitCard.type.ToString().ToLower());

@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Nigthlock Berries
   description: 
   kind: 0
-  Image: 
+  Image: effie
   Faction: 
   owner: 0
   affectedType: 0

@@ -15,7 +15,7 @@ MonoBehaviour:
   name: 'Geralt de Rivia '
   description: 'Witcher '
   kind: 1
-  Image: 
+  Image: peeta
   Faction: 
   owner: 0
   type: 0

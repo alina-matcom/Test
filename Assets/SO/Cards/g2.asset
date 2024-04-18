@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Jennifer
   description: 'Magician '
   kind: 1
-  Image: 
+  Image: rue
   Faction: 
   owner: 0
   type: 1

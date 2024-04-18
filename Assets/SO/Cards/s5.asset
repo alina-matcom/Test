@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Soldier
   description: Regular soldier
   kind: 0
-  Image: 
+  Image: snow
   Faction: 
   owner: 0
   type: 0

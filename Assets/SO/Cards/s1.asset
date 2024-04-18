@@ -15,7 +15,7 @@ MonoBehaviour:
   name: Soldier
   description: A regular soldier
   kind: 0
-  Image: 
+  Image: rue
   Faction: 
   owner: 0
   type: 1
