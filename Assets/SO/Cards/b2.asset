@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ecdef5acb14647f49ab50741db8fd549, type: 3}
-  m_Name: d1
+  m_Script: {fileID: 11500000, guid: 1c54781ac381919448085ffbaf5d56a3, type: 3}
+  m_Name: b2
   m_EditorClassIdentifier: 
-  name: Peeta
+  name: 
   description: 
-  kind: 1
+  kind: 0
   Image: 
   Faction: 
   owner: 0
-  type: 2
+  powerIncrease: 0

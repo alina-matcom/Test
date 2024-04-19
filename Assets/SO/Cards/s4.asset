@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7394f52c7101e064c8499b53b6ee713f, type: 3}
   m_Name: s4
   m_EditorClassIdentifier: 
-  name: Wizard
-  description: asd
+  name: '"Finnick Odair" '
+  description: "\u201CFinnick Odair, el encantador tributo del Distrito 4, es tan
+    peligroso como atractivo. Su habilidad con el tridente y su velocidad en el agua
+    pueden ser la clave para sobrevivir en Los Juegos del Hambre\u201D"
   kind: 0
-  Image: peeta
-  Faction: 
+  Image: finnick
+  Faction: '"Los Tributos"'
   owner: 0
-  type: 0
-  originalPower: 4
-  power: 4
+  type: 1
+  originalPower: 7
+  power: 7
   effect: 

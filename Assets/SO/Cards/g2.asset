@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7394f52c7101e064c8499b53b6ee713f, type: 3}
   m_Name: g2
   m_EditorClassIdentifier: 
-  name: Jennifer
-  description: 'Magician '
-  kind: 1
-  Image: rue
+  name: Witch
+  description: asd
+  kind: 0
+  Image: johanna
   Faction: 
   owner: 0
-  type: 1
-  originalPower: 7
-  power: 7
+  type: 2
+  originalPower: 6
+  power: 6
   effect: 

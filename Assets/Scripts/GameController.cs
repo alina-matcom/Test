@@ -54,20 +54,48 @@ public class GameController : Singleton<GameController>
 
     public bool CheckRoundWinner()
     {
-        int playerScore = BoardController.Instance.GetEnemyScore();
+        int playerScore = BoardController.Instance.GetPlayerScore();
         int enemyScore = BoardController.Instance.GetEnemyScore();
 
         if (playerPassed && enemyPassed)
         {
-            if (playerScore < enemyScore)
+
+            if (playerScore > enemyScore)
             {
-                if (++playerWinnedRounds < 2) DeclareRoundWinner(0);
-                else DeclareGameWinner(0);
+
+                if (++playerWinnedRounds < 2)
+                {
+
+                    DeclareRoundWinner(0);
+                    NextRound(0);
+                }
+                else
+                {
+
+                    DeclareGameWinner(0);
+                }
             }
+
+            else if (enemyScore > playerScore)
+            {
+
+                if (++enemyWinnedRounds < 2)
+                {
+
+                    DeclareRoundWinner(1);
+                    NextRound(1);
+                }
+                else
+                {
+
+                    DeclareGameWinner(1);
+                }
+            }
+
             else
             {
-                if (++enemyWinnedRounds < 2) DeclareRoundWinner(1);
-                else DeclareGameWinner(0);
+                playerWinnedRounds++;
+                enemyWinnedRounds++;
             }
 
             return true;

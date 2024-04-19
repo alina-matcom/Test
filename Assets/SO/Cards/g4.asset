@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7394f52c7101e064c8499b53b6ee713f, type: 3}
   m_Name: g4
   m_EditorClassIdentifier: 
-  name: asd
-  description: asd
-  kind: 1
-  Image: peeta
+  name: Soldier
+  description: Regular soldier
+  kind: 0
+  Image: katniss
   Faction: 
   owner: 0
-  type: 0
-  originalPower: 9
-  power: 9
+  type: 2
+  originalPower: 3
+  power: 3
   effect: 
