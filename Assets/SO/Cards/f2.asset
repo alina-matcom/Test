@@ -12,11 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f2c5232b4db7049afb2752fd100330, type: 3}
   m_Name: f2
   m_EditorClassIdentifier: 
-  name: 
-  description: 
+  name: "\u201CTormenta de Rastrev\xEDspulas\u201D"
+  description: "\u201CUna tormenta de rastrev\xEDspulas se desata, llenando el aire
+    con un zumbido amenazante. Las picaduras de estas criaturas gen\xE9ticamente
+    modificadas causan un dolor insoportable, y su presencia constante confunde y
+    distrae, haciendo que sea m\xE1s dif\xEDcil acertar los ataques\""
   kind: 0
-  Image: 
-  Faction: 
+  Image: avispas
+  Faction: '"Los Tributos"'
   owner: 0
-  affectedType: 0
-  powerReduction: 0
+  affectedType: 1
+  powerReduction: 2

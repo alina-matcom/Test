@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7394f52c7101e064c8499b53b6ee713f, type: 3}
   m_Name: g4
   m_EditorClassIdentifier: 
-  name: Soldier
-  description: Regular soldier
-  kind: 0
-  Image: katniss
-  Faction: 
+  name: '"Cato"'
+  description: "\u201CCato, el temible tributo del Distrito 2, es un adversario formidable
+    en Los Juegos del Hambre. Su fuerza y su determinaci\xF3n pueden ser la clave
+    para dominar el campo de batalla\u201D"
+  kind: 1
+  Image: cato
+  Faction: '"Los Tributos"'
   owner: 0
   type: 2
   originalPower: 3

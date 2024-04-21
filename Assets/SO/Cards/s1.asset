@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7394f52c7101e064c8499b53b6ee713f, type: 3}
   m_Name: s1
   m_EditorClassIdentifier: 
-  name: Soldier
-  description: A regular soldier
+  name: '"Presidente Snow"'
+  description: " \u201CEl Presidente Snow, el temido l\xEDder de Panem, utiliza su
+    poder para mantener a los distritos bajo su control. Su presencia en el campo
+    de batalla puede debilitar a tus enemigos y darle la vuelta a cualquier partida\u201D"
   kind: 0
-  Image: rue
-  Faction: 
+  Image: snow
+  Faction: '"Los Tributos"'
   owner: 0
   type: 1
   originalPower: 1

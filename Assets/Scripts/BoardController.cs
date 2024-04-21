@@ -19,12 +19,17 @@ public class BoardController : Singleton<BoardController>
     protected int playerScoreCounter;
     protected int enemyScoreCounter;
 
+    public static event Action OnScoreUpdateNeeded;
     public void Start()
     {
         playerScore.SetPower(0);
         enemyScore.SetPower(0);
+        OnScoreUpdateNeeded += UpdateScore;
     }
-
+    public static void TriggerScoreUpdateNeeded()
+    {
+        OnScoreUpdateNeeded?.Invoke();
+    }
     public void PlayCard(Card card, Slot slot, int turn)
     {
         if (card is UnitCard unitCard)

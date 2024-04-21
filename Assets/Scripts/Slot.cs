@@ -16,12 +16,12 @@ public class Slot : MonoBehaviour
     public delegate void SlotSelectedHandler(Slot slot);
     public static event SlotSelectedHandler OnSlotSelected;
 
-    public void Start()
+    public virtual void Start()
     {
         GameController.OnHighlight += Highlight;
     }
 
-    public void OnMouseDown()
+    public virtual void OnMouseDown()
     {
         if (_highlight.activeInHierarchy)
         {

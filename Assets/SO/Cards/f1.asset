@@ -12,11 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83f2c5232b4db7049afb2752fd100330, type: 3}
   m_Name: f1
   m_EditorClassIdentifier: 
-  name: Nigthlock Berries
-  description: 
+  name: '"Niebla Venenosa"'
+  description: "\u201CUna niebla espesa y venenosa se cierne sobre el campo de batalla,
+    da\xF1ando a todos los que se atreven a respirarla y oscureciendo la vista. Solo
+    los m\xE1s fuertes y astutos sobrevivir\xE1n a este desaf\xEDo mortal\u201D"
   kind: 0
-  Image: effie
-  Faction: 
+  Image: niebla
+  Faction: '"Los Tributos"'
   owner: 0
   affectedType: 0
-  powerReduction: 0
+  powerReduction: 1

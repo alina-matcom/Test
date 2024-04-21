@@ -50,6 +50,7 @@ public class CardDisplay : MonoBehaviour
         if (card.kind == CardKind.Gold) return;
         if (card is UnitCard unitCard)
         {
+            Debug.Log("Actualizando poder de la carta: " + unitCard.name + " a " + power);
             unitCard.power = power;
             powerDisplay.SetPower(power);
         }

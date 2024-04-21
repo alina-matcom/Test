@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c54781ac381919448085ffbaf5d56a3, type: 3}
   m_Name: b2
   m_EditorClassIdentifier: 
-  name: 
-  description: 
-  kind: 0
-  Image: 
-  Faction: 
+  name: "\u201CLlamas del Sinsajo\u201D"
+  description: "\u201CLas llamas del Sinsajo, un s\xEDmbolo de rebeli\xF3n y esperanza,
+    te permiten luchar con m\xE1s determinaci\xF3n\u201D"
+  kind: 1
+  Image: sinsajo
+  Faction: '"Los Tributos"'
   owner: 0
-  powerIncrease: 0
+  powerIncrease: 3

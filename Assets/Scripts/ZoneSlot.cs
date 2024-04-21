@@ -10,7 +10,7 @@ public class ZoneSlot : Slot
   private readonly float cardWidth = 114f;
   private readonly float zoneWidth = 600f;
 
-  protected List<CardDisplay> GetCards()
+  public List<CardDisplay> GetCards()
   {
     List<CardDisplay> cards = new();
 
@@ -50,10 +50,11 @@ public class ZoneSlot : Slot
       switch (modifier)
       {
         case PowerModifier.Increment:
-          card.SetPower(unitCard.originalPower + value);
+          // Usa el poder actual de la carta de unidad en lugar de originalPower
+          card.SetPower(unitCard.power + value);
           break;
         case PowerModifier.Decrement:
-          card.SetPower(unitCard.originalPower - value);
+          card.SetPower(unitCard.power - value);
           break;
         case PowerModifier.Fix:
           card.SetPower(value);

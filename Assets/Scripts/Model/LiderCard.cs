@@ -1,21 +1,45 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Card", menuName = "Card/Lider Card")]
 public class LiderCard : Card
 {
-  int charges = 3;
+   int charges = 1;
 
-  public virtual void ApplyEffect()
+  public void ApplyEffect(Zone targetZone)
   {
-    if (charges > 0) return;
+    Debug.Log("yeah");
+    if (charges > 0 && targetZone != null)
+    {
+      Debug.Log("sip");
+      charges--;
+      List<CardDisplay> cards = targetZone.unitsSlot.GetCards();
+      foreach (CardDisplay card in cards)
+      {
 
-    charges--;
+        Debug.Log("rico");
+        UnitCard unitCard = card.card as UnitCard;
+        if (unitCard != null)
+        {
+          Debug.Log("sabroso");
+          int doubledPower = unitCard.power * 2;
+          card.SetPower(doubledPower);
+        }
+      }
+    }
+
+    BoardController.TriggerScoreUpdateNeeded();
   }
+
 
   public override BoardSlot GetBoardSlot()
   {
     return BoardSlot.None;
   }
 
+public void ResetCharges()
+{
+    charges = 1;
+}
   public override void Reset() { }
 }

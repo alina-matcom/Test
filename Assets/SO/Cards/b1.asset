@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c54781ac381919448085ffbaf5d56a3, type: 3}
   m_Name: b1
   m_EditorClassIdentifier: 
-  name: Ballad of the Mockinjay
-  description: 
+  name: '"Arco de Katniss"'
+  description: "\u201CEl arco de Katniss, un arma letal que puede cambiar el curso
+    de cualquier batalla\u201D"
   kind: 0
-  Image: gale
-  Faction: 
+  Image: arco
+  Faction: '"Los Tributos"'
   owner: 0
-  powerIncrease: 3
+  powerIncrease: 2

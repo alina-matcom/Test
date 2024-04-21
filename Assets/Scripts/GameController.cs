@@ -16,8 +16,19 @@ public class GameController : Singleton<GameController>
 
     public delegate void HighlightHandler(BoardSlot slot, int player);
     public static event HighlightHandler OnHighlight;
+    public CardDisplay playerLiderCardDisplay;
+    public CardDisplay enemyLiderCardDisplay;
     void Start()
     {
+        if (playerLiderCardDisplay.card is LiderCard playerLiderCard)
+        {
+            playerLiderCard.ResetCharges();
+        }
+        if (enemyLiderCardDisplay.card is LiderCard enemyLiderCard)
+        {
+            enemyLiderCard.ResetCharges();
+        }
+
         HandCardDisplay.OnPlayCard += PlayCard;
         Slot.OnSlotSelected += PlaceCard;
 

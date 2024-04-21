@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7394f52c7101e064c8499b53b6ee713f, type: 3}
   m_Name: s3
   m_EditorClassIdentifier: 
-  name: Soldier
-  description: Regular soldier
+  name: '"Gale Hawthorne"'
+  description: "\u201CGale Hawthorne, el cazador del Distrito 12, est\xE1 siempre
+    dispuesto a luchar por la libertad. Su habilidad para la caza y su esp\xEDritu
+    rebelde pueden ser la clave para ganar Los Juegos del Hambre\u201D"
   kind: 0
   Image: gale
-  Faction: 
+  Faction: '"Los Tributos"'
   owner: 0
-  type: 0
+  type: 1
   originalPower: 3
   power: 3
   effect: 
