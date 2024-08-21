@@ -15,16 +15,38 @@ public class CardDisplay : MonoBehaviour
 
     protected void Start()
     {
+         if (card != null)
+    {
         SetCard(card);
+    }
     }
 
     public void SetCard(Card newCard)
     {
+        if (newCard == null)
+        {
+            Debug.LogError("SetCard was called with a null Card.");
+            return; // Retorna aquí para evitar intentar acceder a propiedades de un objeto null
+        }
+
         card = newCard;
 
+        Debug.Log("Configurando carta: " + card.name);
+
         kindBorderImage.sprite = Resources.Load<Sprite>("card-border-" + card.kind.ToString().ToLower());
-        kindBannerImage.sprite = Resources.Load<Sprite>(card.kind.ToString().ToLower());
-        cardImage.sprite = Resources.Load<Sprite>("card-images/" + card.Image);
+
+        string borderPath = "card-border-" + card.kind.ToString().ToLower();
+        Debug.Log("Loading border sprite from path: " + borderPath); // Registra la ruta intentada
+        kindBorderImage.sprite = Resources.Load<Sprite>(borderPath);
+
+        string bannerPath = card.kind.ToString().ToLower();
+        Debug.Log("Loading banner sprite from path: " + bannerPath); // Registra la ruta intentada
+        kindBannerImage.sprite = Resources.Load<Sprite>(bannerPath);
+
+        string cardImagePath = "card-images/" + card.Image;
+        Debug.Log("Loading card image from path: " + cardImagePath); // Registra la ruta intentada
+        cardImage.sprite = Resources.Load<Sprite>(cardImagePath);
+
         if (card is UnitCard unitCard)
         {
             unitTypeImage.sprite = Resources.Load<Sprite>(unitCard.type.ToString().ToLower());

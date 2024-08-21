@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class DeckController : MonoBehaviour
@@ -10,13 +11,14 @@ public class DeckController : MonoBehaviour
         deck.Reset();
     }
 
-    public void Draw(int amount)
+    public IEnumerator DrawCoroutine(int amount)
+{
+    for (int i = 0; i < amount; i++)
     {
-        for (int i = 0; i < amount; i++)
-        {
-            Card drawnCard = deck.DrawRandomCard();
-            if (!drawnCard) return;
-            handManager.AddCard(drawnCard);
-        }
+        Card drawnCard = deck.DrawRandomCard();
+        if (!drawnCard) yield break;
+        handManager.AddCard(drawnCard);
+        yield return new WaitForSeconds(0.1f); // Ajusta este valor según sea necesario
     }
+}
 }

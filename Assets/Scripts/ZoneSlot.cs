@@ -7,7 +7,7 @@ public class ZoneSlot : Slot
 {
   public CardDisplay cardPrefab;
   public GameObject slot;
-  private readonly float cardWidth = 114f;
+  private readonly float cardWidth = 100f;
   private readonly float zoneWidth = 600f;
 
   public List<CardDisplay> GetCards()
@@ -24,6 +24,11 @@ public class ZoneSlot : Slot
 
   public override void PlayCard(Card card)
   {
+     if (card == null)
+    {
+        Debug.LogError("PlayCard was called with a null Card.");
+        return;
+    }
     if (card is UnitCard unitCard)
     {
       CardDisplay cardDisplay = Instantiate(cardPrefab, slot.transform);

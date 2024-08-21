@@ -6,18 +6,19 @@ using UnityEngine;
 
 public class Zone : MonoBehaviour
 {
-    public int rowPower;
+     public int rowPower;
     public ZoneSlot unitsSlot;
     public BuffSlot buffSlot;
     public PowerDisplay powerDisplay;
     public UnitType rowType;
+    private bool hasEffectBeenApplied = false;
 
     public void Start()
     {
         powerDisplay.SetPower(0);
     }
 
-    public void PlayCard(Card card)
+    public virtual void PlayCard(Card card)
     {
         if (card is UnitCard unitCard)
         {
@@ -36,15 +37,24 @@ public class Zone : MonoBehaviour
 
     public void UpdateRowPower()
     {
-        if (buffSlot.card)
+        if (!hasEffectBeenApplied && buffSlot.card)
         {
             unitsSlot.ApplyEffect(
                 PowerModifier.Increment,
                 (buffSlot.cardDisplay.card as BuffCard).powerIncrease
             );
+
+            hasEffectBeenApplied = true;
         }
 
         rowPower = unitsSlot.GetRowPower();
         powerDisplay.SetPower(rowPower);
+    }
+
+    public void ResetRowPower()
+    {
+        rowPower = 0;
+        powerDisplay.SetPower(rowPower);
+        hasEffectBeenApplied = false; // Asegúrate de restablecer el estado del efecto aplicado
     }
 }

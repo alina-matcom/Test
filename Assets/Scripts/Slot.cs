@@ -29,7 +29,7 @@ public class Slot : MonoBehaviour
         }
     }
 
-    public void Highlight(BoardSlot slot, int player)
+    public virtual void Highlight(BoardSlot slot, int player)
     {
         _highlight.SetActive(slotType == slot && owner == player);
     }

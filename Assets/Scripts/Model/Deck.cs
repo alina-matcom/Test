@@ -5,8 +5,8 @@ using System;
 [CreateAssetMenu(fileName = "NewDeck", menuName = "Deck")]
 public class Deck : ScriptableObject
 {
-    public List<Card> originalCards;
-    public List<Card> cards;
+    public List<Card> originalCards = new List<Card>(); 
+    public List<Card> cards = new List<Card>();
 
     public void Reset()
     {

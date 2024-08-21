@@ -11,12 +11,19 @@ public class HandManager : MonoBehaviour
 
     public void AddCard(Card card)
     {
+        if (card == null)
+    {
+        Debug.LogError("AddCard was called with a null Card.");
+        return;
+    }
+
         if (transform.childCount > maxCardsInHand)
         {
             return;
         }
 
         HandCardDisplay newCard = Instantiate(cardPrefab, transform);
+        newCard.card = card;
         newCard.SetCard(card);
         newCard.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 

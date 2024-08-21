@@ -18,6 +18,9 @@ public class GameController : Singleton<GameController>
     public static event HighlightHandler OnHighlight;
     public CardDisplay playerLiderCardDisplay;
     public CardDisplay enemyLiderCardDisplay;
+
+    public UIManager uiManager; // Añade una referencia a UIManager
+
     void Start()
     {
         if (playerLiderCardDisplay.card is LiderCard playerLiderCard)
@@ -32,8 +35,8 @@ public class GameController : Singleton<GameController>
         HandCardDisplay.OnPlayCard += PlayCard;
         Slot.OnSlotSelected += PlaceCard;
 
-        playerDeck.Draw(10);
-        enemyDeck.Draw(10);
+        StartCoroutine(playerDeck.DrawCoroutine(10));
+        StartCoroutine(enemyDeck.DrawCoroutine(10));
         BoardController.Instance.UpdateTurnIndicator(currentTurn);
     }
 
@@ -49,7 +52,14 @@ public class GameController : Singleton<GameController>
             return;
         }
         CardManager.Instance.selectedCard = card;
-        OnHighlight?.Invoke(card.card.GetBoardSlot(), currentTurn);
+        if (CardManager.Instance.selectedCard != null)
+        {
+            OnHighlight?.Invoke(card.card.GetBoardSlot(), currentTurn);
+        }
+        else
+        {
+            Debug.LogError("No se ha seleccionado una carta válida.");
+        }
     }
 
     public void PlaceCard(Slot slot)
@@ -70,39 +80,30 @@ public class GameController : Singleton<GameController>
 
         if (playerPassed && enemyPassed)
         {
-
             if (playerScore > enemyScore)
             {
-
                 if (++playerWinnedRounds < 2)
                 {
-
                     DeclareRoundWinner(0);
                     NextRound(0);
                 }
                 else
                 {
-
                     DeclareGameWinner(0);
                 }
             }
-
             else if (enemyScore > playerScore)
             {
-
                 if (++enemyWinnedRounds < 2)
                 {
-
                     DeclareRoundWinner(1);
                     NextRound(1);
                 }
                 else
                 {
-
                     DeclareGameWinner(1);
                 }
             }
-
             else
             {
                 playerWinnedRounds++;
@@ -117,7 +118,6 @@ public class GameController : Singleton<GameController>
 
     public void Forfeit()
     {
-        Debug.Log("yep");
         if (currentTurn == 0) playerPassed = true;
         else enemyPassed = true;
         NextTurn();
@@ -130,7 +130,8 @@ public class GameController : Singleton<GameController>
         if (playerPassed && currentTurn == 1) return;
         if (enemyPassed && currentTurn == 0) return;
 
-        currentTurn ^= 1;
+        currentTurn = (currentTurn == 0) ? 1 : 0;
+
         playerHandManager.Hide(currentTurn == 1);
         enemyHandManager.Hide(currentTurn == 0);
         BoardController.Instance.UpdateTurnIndicator(currentTurn);
@@ -141,17 +142,35 @@ public class GameController : Singleton<GameController>
         round++;
         currentTurn = winner;
 
-        playerDeck.Draw(2);
-        enemyDeck.Draw(2);
+        // Enviar todas las cartas al cementerio y reiniciar el poder
+        BoardController.Instance.SendAllCardsToGraveyard();
+        BoardController.Instance.ResetPlayerPowers();
+
+        // Reiniciar las cargas de las cartas líder
+        if (playerLiderCardDisplay.card is LiderCard playerLiderCard)
+        {
+            playerLiderCard.ResetCharges();
+        }
+        if (enemyLiderCardDisplay.card is LiderCard enemyLiderCard)
+        {
+            enemyLiderCard.ResetCharges();
+        }
+
+        playerDeck.DrawCoroutine(2);
+        enemyDeck.DrawCoroutine(2);
+        // Asegurarse de que el turno se maneje correctamente
+        NextTurn();
     }
 
     public void DeclareRoundWinner(int winner)
     {
         Debug.Log("Player " + winner + " won this round!");
+        StartCoroutine(uiManager.ShowWinnerMessage($"Player {winner} won this round!"));
     }
 
     public void DeclareGameWinner(int winner)
     {
         Debug.Log("Player " + winner + " wins!!");
+        StartCoroutine(uiManager.ShowWinnerMessage($"Player {winner} wins the game!"));
     }
 }

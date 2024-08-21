@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class BoardController : Singleton<BoardController>
@@ -16,20 +14,21 @@ public class BoardController : Singleton<BoardController>
     public PowerDisplay enemyScore;
     public TurnIndicator playerTurnIndicator;
     public TurnIndicator enemyTurnIndicator;
-    protected int playerScoreCounter;
-    protected int enemyScoreCounter;
 
     public static event Action OnScoreUpdateNeeded;
+
     public void Start()
     {
         playerScore.SetPower(0);
         enemyScore.SetPower(0);
         OnScoreUpdateNeeded += UpdateScore;
     }
+
     public static void TriggerScoreUpdateNeeded()
     {
         OnScoreUpdateNeeded?.Invoke();
     }
+
     public void PlayCard(Card card, Slot slot, int turn)
     {
         if (card is UnitCard unitCard)
@@ -49,6 +48,17 @@ public class BoardController : Singleton<BoardController>
                     break;
             }
         }
+        else if (card is FieldCard)
+        {
+            if (slot is FieldZone)
+            {
+                slot.PlayCard(card);
+            }
+            else
+            {
+                Debug.Log("FieldCard can only be played in FieldZone.");
+            }
+        }
         else if (slot is BuffSlot)
         {
             slot.PlayCard(card);
@@ -59,7 +69,6 @@ public class BoardController : Singleton<BoardController>
 
     public void UpdateZonesPower()
     {
-
         playerMeleeZone.UpdateRowPower();
         playerRangedZone.UpdateRowPower();
         playerSiegeZone.UpdateRowPower();
@@ -95,5 +104,29 @@ public class BoardController : Singleton<BoardController>
     {
         playerTurnIndicator.Show(turn == 0);
         enemyTurnIndicator.Show(turn == 1);
+    }
+
+    public void SendAllCardsToGraveyard()
+    {
+        foreach (Zone zone in new[] { playerMeleeZone, playerRangedZone, playerSiegeZone, enemyMeleeZone, enemyRangedZone, enemySiegeZone })
+        {
+            foreach (CardDisplay card in zone.unitsSlot.GetCards())
+            {
+                Destroy(card.gameObject);
+            }
+        }
+    }
+
+    public void ResetPlayerPowers()
+    {
+        playerScore.SetPower(0);
+        enemyScore.SetPower(0);
+
+        playerMeleeZone.ResetRowPower();
+        playerRangedZone.ResetRowPower();
+        playerSiegeZone.ResetRowPower();
+        enemyMeleeZone.ResetRowPower();
+        enemyRangedZone.ResetRowPower();
+        enemySiegeZone.ResetRowPower();
     }
 }
