@@ -1,6 +1,7 @@
 using UnityEngine;
 using GwentInterpreters;
 using System.Collections.Generic;
+using System.Collections;
 
 public class GameController : Singleton<GameController>
 {
@@ -27,7 +28,16 @@ public class GameController : Singleton<GameController>
     {
         // Cargar cartas desde el archivo DSL
         string dslFilePath = @"C:\Unity-Juego Gwent\Frontend\Unity 2\Gwent 2\Gwent-test\StreamingAssets\deck.dsl";
-        List<Card> cards = DSLProcessor.LoadCardsFromDSL(dslFilePath);
+        List<CardOld> cards = DSLProcessor.LoadCardsFromDSL(dslFilePath);
+        // Asignar las cartas a los mazos de los jugadores
+        playerDeck.deck = ScriptableObject.CreateInstance<Deck>();
+        enemyDeck.deck = ScriptableObject.CreateInstance<Deck>();
+
+        playerDeck.deck.originalCards = new List<CardOld>(cards);
+        enemyDeck.deck.originalCards = new List<CardOld>(cards);
+
+        playerDeck.deck.Reset();
+        enemyDeck.deck.Reset();
 
         if (playerLiderCardDisplay.card is LiderCard playerLiderCard)
         {
@@ -41,9 +51,14 @@ public class GameController : Singleton<GameController>
         HandCardDisplay.OnPlayCard += PlayCard;
         Slot.OnSlotSelected += PlaceCard;
 
-        StartCoroutine(playerDeck.DrawCoroutine(10));
-        StartCoroutine(enemyDeck.DrawCoroutine(10));
+        StartCoroutine(DrawCardsAndCheckHands());
         BoardController.Instance.UpdateTurnIndicator(currentTurn);
+    }
+    private IEnumerator DrawCardsAndCheckHands()
+    {
+        // Iniciar las corrutinas de dibujo de cartas
+        yield return StartCoroutine(playerDeck.DrawCoroutine(10));
+        yield return StartCoroutine(enemyDeck.DrawCoroutine(10));
     }
 
     public void OnDestroy()

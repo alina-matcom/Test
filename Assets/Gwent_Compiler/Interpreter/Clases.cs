@@ -3,35 +3,85 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using UnityEngine;
 
 namespace GwentInterpreters
 {
-    public class Card
-    {
-        public string Type { get; set; }
-        public string Name { get; set; }
-        public string Faction { get; set; }
-        public double Power { get; set; }
-        public List<string> Range { get; set; }
-        public List<EffectActionResult> OnActivation { get; }  // Cambiado de EffectAction a EffectActionResult
-        public int Owner { get; set; }  // Nueva propiedad Owner
+    public class Card : CardOld
+{
+    public string Type { get; set; }
+    public double Power { get; set; }
+    public List<string> Range { get; set; }
+    public List<EffectActionResult> OnActivation { get; }  // Cambiado de EffectAction a EffectActionResult
 
-        public Card(string type, string name, string faction, double power, List<string> range, List<EffectActionResult> onActivation, int owner)
+    private readonly double powerOriginal;
+
+    public Card(string type, string name, string faction, double power, List<string> range, List<EffectActionResult> onActivation, int owner)
+    {
+        Type = type;
+        this.name = name;  // Asignar el valor del parámetro name a la propiedad name de CardOld
+        Faction = faction;
+        Power = power;
+        Range = range;
+        OnActivation = onActivation;
+        this.owner = owner;  // Asignar el valor del parámetro owner a la propiedad owner de CardOld
+
+        // Inicializar las propiedades heredadas con valores por defecto
+        description = "Carta creada por mi compilador";
+
+        // Inicializar kind basado en el valor de Type
+        switch (type)
         {
-            Type = type;
-            Name = name;
-            Faction = faction;
-            Power = power;
-            Range = range;
-            OnActivation = onActivation;
-            Owner = owner;  // Asignar el valor del parámetro owner a la propiedad Owner
+            case "Oro":
+                kind = CardKind.Gold;
+                break;
+            case "Plata":
+                kind = CardKind.Silver;
+                break;
+            default:
+                kind = CardKind.Bronze;
+                break;
         }
-        public override string ToString()
+
+        // Inicializar Image con el valor por defecto "gwent"
+        Image = "gwent";
+
+        // Inicializar powerOriginal con el valor de power
+        powerOriginal = power;
+    }
+
+    public override void Reset()
+    {
+        // Restaurar el valor de Power a su valor original
+        Power = powerOriginal;
+    }
+
+    public override BoardSlot GetBoardSlot()
+    {
+        // Implementar GetBoardSlot basado en el rango de la carta
+        if (Range.Contains("Melee"))
         {
-            return $"Card: {Name}, Type: {Type}, Faction: {Faction}, Power: {Power}, Range: [{string.Join(", ", Range)}], Owner: {Owner}";
+            return BoardSlot.MeleeZone;
+        }
+        else if (Range.Contains("Ranged"))
+        {
+            return BoardSlot.RangedZone;
+        }
+        else if (Range.Contains("Siege"))
+        {
+            return BoardSlot.SiegeZone;
+        }
+        else
+        {
+            return BoardSlot.None;
         }
     }
 
+    public override string ToString()
+    {
+        return $"Card: {name}, Type: {Type}, Faction: {Faction}, Power: {Power}, Range: [{string.Join(", ", Range)}], Owner: {owner}";
+    }
+}
 
     public class Context
     {
@@ -151,7 +201,7 @@ namespace GwentInterpreters
 
         public void Shuffle()
         {
-            Random rng = new Random();
+            System.Random rng = new System.Random();
             int n = cards.Count;
             while (n > 1)
             {

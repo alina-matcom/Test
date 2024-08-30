@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using GwentInterpreters;
 public class DSLProcessor
 {
-    public static List<Card> LoadCardsFromDSL(string filePath)
+    public static List<CardOld> LoadCardsFromDSL(string filePath)
     {
         string dslCode = File.ReadAllText(filePath);
 
@@ -15,7 +15,7 @@ public class DSLProcessor
         Interpreter interpreter = new Interpreter();
 
         // Interpretar las declaraciones parseadas
-        List<Card> cards = interpreter.Interpret(statements);
+        List<CardOld> cards = interpreter.Interpret(statements);
 
         return cards;
     }

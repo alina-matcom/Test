@@ -11,9 +11,9 @@ namespace GwentInterpreters
         // Diccionario para almacenar los efectos definidos
         private Dictionary<string, EffectDefinition> effectDefinitions = new Dictionary<string, EffectDefinition>();
         // Lista para almacenar las cartas
-        private List<Card> cards = new List<Card>();
+        private List<CardOld> cards = new List<CardOld>();
         private int currentOwner = 0; // Variable para alternar entre 0 y 1
-        public List<Card> Interpret(List<Stmt> statements)
+        public List<CardOld> Interpret(List<Stmt> statements)
         {
             try
             {

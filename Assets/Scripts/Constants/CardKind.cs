@@ -1,4 +1,4 @@
 public enum CardKind
 {
-  Silver, Gold
+  Silver, Gold,Bronze
 }

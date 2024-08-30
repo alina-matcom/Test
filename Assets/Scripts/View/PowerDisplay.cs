@@ -4,7 +4,7 @@ using UnityEngine.UI;
 public class PowerDisplay : MonoBehaviour
 {
     public Texture2D[] numberImages;
-    public int power;
+    public double power;
 
     public void UpdateDisplay()
     {
@@ -28,7 +28,7 @@ public class PowerDisplay : MonoBehaviour
         }
     }
 
-    public void SetPower(int newPower)
+    public void SetPower(double newPower)
     {
         power = newPower;
         UpdateDisplay();

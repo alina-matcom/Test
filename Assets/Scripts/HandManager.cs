@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class HandManager : MonoBehaviour
@@ -12,10 +13,10 @@ public class HandManager : MonoBehaviour
     public void AddCard(CardOld card)
     {
         if (card == null)
-    {
-        Debug.LogError("AddCard was called with a null Card.");
-        return;
-    }
+        {
+            Debug.LogError("AddCard was called with a null Card.");
+            return;
+        }
 
         if (transform.childCount > maxCardsInHand)
         {
@@ -46,6 +47,19 @@ public class HandManager : MonoBehaviour
     public int GetCount()
     {
         return transform.childCount;
+    }
+    public List<CardOld> GetCardsInHand()
+    {
+        List<CardOld> cardsInHand = new List<CardOld>();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            HandCardDisplay cardDisplay = transform.GetChild(i).GetComponent<HandCardDisplay>();
+            if (cardDisplay != null)
+            {
+                cardsInHand.Add(cardDisplay.card);
+            }
+        }
+        return cardsInHand;
     }
 
     IEnumerator AdjustCardPositions()

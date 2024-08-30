@@ -354,7 +354,7 @@ namespace GwentInterpreters
             Consume(TokenType.COLON, $"Se esperaba ':' después de '{attributeName}'.");
             Token stringToken = Consume(TokenType.STRING, $"Se esperaba un valor de cadena para '{attributeName}'.");
             Consume(TokenType.COMMA, $"Se esperaba ',' después del valor de cadena para '{attributeName}'.");
-            return stringToken.Lexeme;
+            return (string)stringToken.Literal;
         }
 
         private string ParseStringAttributeNew(TokenType expectedTokenType, string attributeName)

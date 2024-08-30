@@ -1,4 +1,5 @@
 using System.Collections;
+using GwentInterpreters;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,14 +12,14 @@ public class CardDisplay : MonoBehaviour
     public Image unitTypeImage;
     public Image kindBorderImage;
     public Image kindBannerImage;
-    public Image cardImage; 
+    public Image cardImage;
 
     protected void Start()
     {
-         if (card != null)
-    {
-        SetCard(card);
-    }
+        if (card != null)
+        {
+            SetCard(card);
+        }
     }
 
     public void SetCard(CardOld newCard)
@@ -53,6 +54,11 @@ public class CardDisplay : MonoBehaviour
             powerDisplay.SetPower(unitCard.power);
             powerDisplay.gameObject.SetActive(true);
         }
+        else if (card is Card cardInstance)
+        {
+            powerDisplay.SetPower(cardInstance.Power);
+            powerDisplay.gameObject.SetActive(true);
+        }
         else
         {
             if (card is FieldCard)
@@ -74,6 +80,12 @@ public class CardDisplay : MonoBehaviour
         {
             Debug.Log("Actualizando poder de la carta: " + unitCard.name + " a " + power);
             unitCard.power = power;
+            powerDisplay.SetPower(power);
+        }
+        else if (card is Card cardInstance)
+        {
+            Debug.Log("Actualizando poder de la carta: " + cardInstance.name + " a " + power);
+            cardInstance.Power = power;
             powerDisplay.SetPower(power);
         }
     }
