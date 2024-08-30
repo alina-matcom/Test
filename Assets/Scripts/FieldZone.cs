@@ -20,7 +20,7 @@ public class FieldZone : Slot
 
     private readonly float zoneWidth = 245f;
 
-    public override void PlayCard(Card card)
+    public override void PlayCard(CardOld card)
     {
         if (card == null)
         {

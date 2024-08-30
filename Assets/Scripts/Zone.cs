@@ -18,7 +18,7 @@ public class Zone : MonoBehaviour
         powerDisplay.SetPower(0);
     }
 
-    public virtual void PlayCard(Card card)
+    public virtual void PlayCard(CardOld card)
     {
         if (card is UnitCard unitCard)
         {

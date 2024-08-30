@@ -3,9 +3,9 @@ using UnityEngine;
 public class BuffSlot : Slot
 {
   public CardDisplay cardDisplay;
-  public Card card;
+  public CardOld card;
 
-  public override void PlayCard(Card card)
+  public override void PlayCard(CardOld card)
 {
     if (card == null)
     {

@@ -22,7 +22,7 @@ public class ZoneSlot : Slot
     return cards;
   }
 
-  public override void PlayCard(Card card)
+  public override void PlayCard(CardOld card)
   {
      if (card == null)
     {

@@ -9,7 +9,7 @@ public class HandManager : MonoBehaviour
     public int maxCardsInHand = 10;
     public int owner;
 
-    public void AddCard(Card card)
+    public void AddCard(CardOld card)
     {
         if (card == null)
     {

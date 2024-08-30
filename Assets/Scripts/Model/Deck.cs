@@ -5,20 +5,20 @@ using System;
 [CreateAssetMenu(fileName = "NewDeck", menuName = "Deck")]
 public class Deck : ScriptableObject
 {
-    public List<Card> originalCards = new List<Card>(); 
-    public List<Card> cards = new List<Card>();
+    public List<CardOld> originalCards = new List<CardOld>(); 
+    public List<CardOld> cards = new List<CardOld>();
 
     public void Reset()
     {
         cards.Clear();
-        foreach (Card card in originalCards)
+        foreach (CardOld card in originalCards)
         {
             card.Reset();
             cards.Add(card);
         }
     }
 
-    public Card DrawRandomCard()
+    public CardOld DrawRandomCard()
     {
         if (cards.Count == 0)
         {
@@ -26,7 +26,7 @@ public class Deck : ScriptableObject
         }
 
         int randomIndex = UnityEngine.Random.Range(0, cards.Count);
-        Card drawnCard = cards[randomIndex];
+        CardOld drawnCard = cards[randomIndex];
         cards.RemoveAt(randomIndex);
 
         return drawnCard;

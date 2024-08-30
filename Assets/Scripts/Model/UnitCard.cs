@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Card", menuName = "Card/Unit Card")]
-public class UnitCard : Card
+public class UnitCard : CardOld
 {
     public UnitType type;
     public int originalPower;

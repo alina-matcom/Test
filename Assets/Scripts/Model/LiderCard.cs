@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Card", menuName = "Card/Lider Card")]
-public class LiderCard : Card
+public class LiderCard : CardOld
 {
    int charges = 1;
 

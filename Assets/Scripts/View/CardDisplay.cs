@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour
 {
-    public Card card;
+    public CardOld card;
     public Text nameText;
     public Text descText;
     public PowerDisplay powerDisplay;
@@ -21,7 +21,7 @@ public class CardDisplay : MonoBehaviour
     }
     }
 
-    public void SetCard(Card newCard)
+    public void SetCard(CardOld newCard)
     {
         if (newCard == null)
         {

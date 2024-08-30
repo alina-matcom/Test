@@ -11,7 +11,7 @@ public class Slot : MonoBehaviour
     public BoardSlot slotType;
     public int owner;
 
-    public virtual void PlayCard(Card card) { }
+    public virtual void PlayCard(CardOld card) { }
 
     public delegate void SlotSelectedHandler(Slot slot);
     public static event SlotSelectedHandler OnSlotSelected;

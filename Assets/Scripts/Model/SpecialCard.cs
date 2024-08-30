@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public abstract class SpecialCard : Card
+public abstract class SpecialCard : CardOld
 {
     public virtual void ApplyEffect() { }
 }

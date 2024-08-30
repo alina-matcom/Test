@@ -4,7 +4,7 @@ public class CardDetails : Singleton<CardDetails>
 {
     public CardDisplay cardDisplay;
 
-    public void Show(Card card)
+    public void Show(CardOld card)
 {
     if (card == null)
     {

@@ -29,7 +29,7 @@ public class BoardController : Singleton<BoardController>
         OnScoreUpdateNeeded?.Invoke();
     }
 
-    public void PlayCard(Card card, Slot slot, int turn)
+    public void PlayCard(CardOld card, Slot slot, int turn)
     {
         if (card is UnitCard unitCard)
         {

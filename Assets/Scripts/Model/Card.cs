@@ -1,7 +1,7 @@
 using System.Threading;
 using UnityEngine;
 
-public abstract class Card : ScriptableObject
+public abstract class CardOld : ScriptableObject
 {
     public new string name;
     public string description;
