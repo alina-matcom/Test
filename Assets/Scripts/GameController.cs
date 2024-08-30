@@ -1,4 +1,6 @@
 using UnityEngine;
+using GwentInterpreters;
+using System.Collections.Generic;
 
 public class GameController : Singleton<GameController>
 {
@@ -23,6 +25,10 @@ public class GameController : Singleton<GameController>
 
     void Start()
     {
+        // Cargar cartas desde el archivo DSL
+        string dslFilePath = @"C:\Unity-Juego Gwent\Frontend\Unity 2\Gwent 2\Gwent-test\StreamingAssets\deck.dsl";
+        List<Card> cards = DSLProcessor.LoadCardsFromDSL(dslFilePath);
+
         if (playerLiderCardDisplay.card is LiderCard playerLiderCard)
         {
             playerLiderCard.ResetCharges();
